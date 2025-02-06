@@ -1,8 +1,8 @@
 from odoo import models, fields
 
-class MiModelo(models.Model):
-    _name = 'mi.modelo'
-    _description = 'Mi modelo de ejemplo'
+class Coche(models.Model):
+    _name = 'coche'
+    _description = 'Mi gestion de reservas'
 
     name = fields.Char(string='Nombre', required=True)
     description = fields.Text(string='Descripción')

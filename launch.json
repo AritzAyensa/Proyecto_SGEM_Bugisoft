@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Odoo Debug",
+            "type": "python",
+            "request": "launch",
+            "program": "${gestion_reservas}/odoo/odoo-bin",
+            "args": [
+                "--config=${gestion_reservas}/odoo.conf",
+                "--addons-path=${gestion_reservas}/addons,${gestion_reservas}/odoo/addons",
+                "--dev=all"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}
