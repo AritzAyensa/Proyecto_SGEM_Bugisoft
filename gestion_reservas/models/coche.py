@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class Coche(models.Model):
     _name = 'coche'
@@ -24,3 +24,18 @@ class Coche(models.Model):
     
     kilometraje=fields.Float(string="Kilomentraje (km)")
     color=fields.Char(string="Color")
+    
+    reservation_ids=fields.One2many("res.booking","coche_id",string="Reservas")
+    
+    @api.model
+    def create(self, values):
+        """ Método para crear un coche """
+        # Validación para que no haya dos coches con la misma matrícula
+        if 'matricula' in values:
+            existing_car = self.search([('matricula', '=', values['matricula'])])
+            if existing_car:
+                raise KeyError('Ya existe un coche con esa matrícula.')
+            
+    @api.model
+    def read(self, ids=None, fields=None, load='_classic_read'):
+        return super(Coche, self).read(ids, fields, load)
