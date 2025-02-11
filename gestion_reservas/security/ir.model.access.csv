@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_coche,coche,model_coche,,1,1,1,1
+access_res_partner,res.partner,model_res_partner,,1,1,1,1
+access_res_booking,res.booking,model_res_booking,,1,1,1,1
