@@ -3,7 +3,7 @@
     'version': '1.0',
     'summary': 'Descripción breve del módulo',
     'author': 'Bugisoft S.A',
-    'depends': ['base'],
+    'depends': ['base','account'],
     'data': [
         'security/ir.model.access.csv',
         'views/gestion_reservas_views.xml',
