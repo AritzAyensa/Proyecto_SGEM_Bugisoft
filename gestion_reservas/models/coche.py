@@ -7,7 +7,6 @@ class Coche(models.Model):
     name = fields.Char(string='Modelo del Coche', required=True)
     marca= fields.Char(string="Marca",required=True)
     precio_por_dia = fields.Float(string='Precio por Día', required=True)
-    disponible=fields.Boolean(string="Disponible",default=True)
     matricula=fields.Char(string="matricula",required=True,unique=True)
     tipo_combustible=fields.Selection([
         ("gasolina","Gasolina"),
@@ -29,13 +28,18 @@ class Coche(models.Model):
     
     @api.model
     def create(self, values):
-        """ Método para crear un coche """
-        # Validación para que no haya dos coches con la misma matrícula
         if 'matricula' in values:
             existing_car = self.search([('matricula', '=', values['matricula'])])
             if existing_car:
                 raise KeyError('Ya existe un coche con esa matrícula.')
             
-    @api.model
-    def read(self, ids=None, fields=None, load='_classic_read'):
-        return super(Coche, self).read(ids, fields, load)
+    def write(self,values):
+         if 'matricula' in values:
+            existing_car = self.search([('matricula', '=', values['matricula']), ('id', '!=', self.id)])
+            if existing_car:
+                raise KeyError('Ya existe un coche con esa matrícula.')
+
+    def unlink(self):
+        for coche in self:
+            if coche.reservation_ids:
+                raise KeyError('No puedes eliminar un coche que tiene reservas asociadas.')
