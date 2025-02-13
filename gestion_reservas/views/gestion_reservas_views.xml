@@ -1,17 +1,52 @@
 <odoo>
-    <record id="view_mi_modelo_form" model="ir.ui.view">
-        <field name="name">mi.modelo.form</field>
-        <field name="model">mi.modelo</field>
+
+    <!-- Formulario para añadir reservas con un cliente y un coche-->
+
+    <record id="view_reserva_form" model="ir.ui.view">
+        <field name="name">view.reserva.form</field>
+        <field name="model">reserva</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Reserva">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="description"/>
-                        <field name="active"/>
+                        <field name="name" string="Nombre de la reserva"/>
+                        <field name="description" string="Descripción">
+                        <field name="duarcion" string="Duración en días"/>
+                        <field name="fecha" string="Fecha y hora de inicio"/>
+                        <field name="estado" string="Estado de la reserva" readonly="1"/>
+                        <field name="precio" string="Precio de la reserva" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="coche_id" string="Coche"/>
+                        <field name="cliente_id" string="Cliente"/>
+                        <field name="factura_id" string="Factura"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
+
+    <!-- Listado de las reservas existentes activas y no activas-->
+
+    <record id="view_reserva_tree" model="ir.ui.view">
+        <field name="name">view.reserva.tree</field>
+        <field name="model">view.reserva</field>
+        <field name="arch" type="xml"/>
+            <tree string="Listado de reservas">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="duracion"/>
+                <field name="fecha"/>
+                <field name="estado"/>
+                <field name="coche_id"/>
+                <field name="cliente_id"/>
+                <field name="precio"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Abrir el formulario de reservas -->
+
+    <menuitem id="menu_reserva" name="Reservas" sequence="10"/>
+    <menuitem id="menu_reserva" parent="Reservas" name="menu_reserva" action="action_reserva"/>
 </odoo>
