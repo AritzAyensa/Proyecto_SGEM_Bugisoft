@@ -7,6 +7,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/gestion_reservas_views.xml',
+        'views/crear_coches_views.xml'
     ],
     'installable': True,
     'application': True,
