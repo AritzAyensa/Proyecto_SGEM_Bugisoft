@@ -1,10 +1,28 @@
 <odoo>
+<data>
 
-    <!-- Formulario para añadir los coches -->
+<!-- Lista de coches ya creados -->
+    <record id="view_list_coche" model="ir.ui.view">
+        <field name="name">coche.list</field>
+        <field name="model">res.coche</field>
+        <field name="type">list</field> <!-- Tipo de vista cambiado a 'list' -->
+        <field name="arch" type="xml">
+            <list string="Listado de coches">
+                <field name="name"/> 
+                <field name="marca"/> 
+                <field name="precio_por_dia"/> 
+                <field name="matricula"/> 
+                <field name="tipo_combustible"/> <!-- Campo corregido a tipo_combustible -->
+                <field name="num_asientos"/> 
+                <field name="transmision"/>
+            </list> 
+        </field>
+    </record>
 
+<!-- Formulario para añadir los coches -->
     <record id="view_coche_form" model="ir.ui.view">
         <field name="name">coche.form</field>
-        <field name="model">coche</field>
+        <field name="model">res.coche</field>
         <field name="arch" type="xml">
             <form string="Añadir Coche">
                 <sheet>
@@ -12,7 +30,6 @@
                         <field name="name" string="Modelo del coche"/>
                         <field name="marca" string="Marca"/>
                         <field name="precio_por_dia" string="Precio por día"/>
-                        <field name="disponible" string="Disponible"/>
                         <field name="matricula" string="Matrícula"/>
                         <field name="tipo_combustible" string="Tipo de combustible"/>
                         <field name="num_asientos" string="Número de asientos"/>
@@ -25,36 +42,17 @@
         </field>
     </record>
 
-    <!-- Lista de coches ya creados -->
-
-    <record id="view_tree_coche" model="ir.ui.view">
-        <field name="name">coche.tree</field>
-        <field name="model">coche</field>
-        <field name="arch" type="xml">
-            <tree string="Listado de coches">
-                <field name="name"/> 
-                <field name="marca"/> 
-                <field name="precio_por_dia"/> 
-                <field name="disponible"/> 
-                <field name="matricula"/> 
-                <field name="tipo_combustibles"/> 
-                <field name="num_asientos"/> 
-                <field name="transmision"/>
-            </tree> 
-        </field>
-    </record>
-
-    <!-- Abrir la vista del formulario -->
-
+<!-- Abrir la vista del formulario -->
     <record id="action_coche" model="ir.actions.act_window">
         <field name="name">Coches</field>
-        <field name="res_model">coche</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_tree_coche"/>
+        <field name="res_model">res.coche</field>
+        <field name="view_mode">list,form</field> <!-- Cambié a 'list' en lugar de 'tree' -->
+        <field name="view_id" ref="view_list_coche"/> <!-- Referencia a la vista 'list' -->
     </record>
 
-    <!-- Menu para acceder a los formularios -->
-
+<!-- Menu para acceder a los formularios -->
     <menuitem id="menu_coche" name="Coches" sequence="10"/>
     <menuitem id="menu_coche_redireccion" parent="menu_coche" name="Coches" action="action_coche"/>
+
+</data>
 </odoo>
