@@ -1,52 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
 
-    <!-- Formulario para añadir reservas con un cliente y un coche-->
+        <!-- Vista de lista para reservas -->
+        <record id="view_reserva_list" model="ir.ui.view">
+            <field name="name">view.reserva.list</field>
+            <field name="model">res.booking</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list string="Listado de reservas">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="duracion"/>
+                    <field name="fecha"/>
+                    <field name="estado"/>
+                    <field name="coche_id"/>
+                    <field name="cliente_id"/>
+                    <field name="precio"/>
+                </list>
+            </field>
+        </record>
 
-    <record id="view_reserva_form" model="ir.ui.view">
-        <field name="name">view.reserva.form</field>
-        <field name="model">reserva</field>
-        <field name="arch" type="xml">
-            <form string="Reserva">
-                <sheet>
-                    <group>
-                        <field name="name" string="Nombre de la reserva"/>
-                        <field name="description" string="Descripción">
-                        <field name="duarcion" string="Duración en días"/>
-                        <field name="fecha" string="Fecha y hora de inicio"/>
-                        <field name="estado" string="Estado de la reserva" readonly="1"/>
-                        <field name="precio" string="Precio de la reserva" readonly="1"/>
-                    </group>
-                    <group>
-                        <field name="coche_id" string="Coche"/>
-                        <field name="cliente_id" string="Cliente"/>
-                        <field name="factura_id" string="Factura"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+        <!-- Vista de formulario para reservas -->
+        <record id="view_reserva_form" model="ir.ui.view">
+            <field name="name">view.reserva.form</field>
+            <field name="model">res.booking</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reserva">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="duracion"/>
+                            <field name="fecha"/>
+                            <field name="estado"/>
+                            <field name="coche_id"/>
+                            <field name="cliente_id"/>
+                            <field name="precio"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-    <!-- Listado de las reservas existentes activas y no activas-->
+        <!-- Acción para mostrar las reservas -->
+        <record id="action_reserva" model="ir.actions.act_window">
+            <field name="name">Reservas</field>
+            <field name="res_model">res.booking</field>
+            <field name="view_mode">list,form</field>
+        </record>
 
-    <record id="view_reserva_tree" model="ir.ui.view">
-        <field name="name">view.reserva.tree</field>
-        <field name="model">view.reserva</field>
-        <field name="arch" type="xml"/>
-            <tree string="Listado de reservas">
-                <field name="name"/>
-                <field name="description"/>
-                <field name="duracion"/>
-                <field name="fecha"/>
-                <field name="estado"/>
-                <field name="coche_id"/>
-                <field name="cliente_id"/>
-                <field name="precio"/>
-            </tree>
-        </field>
-    </record>
+        <!-- Menú para acceder a las reservas -->
+        <menuitem id="menu_reservas" name="Reservas" sequence="10"/>
+        <menuitem id="submenu_reservas" name="Gestión de Reservas" parent="menu_reservas" action="action_reserva"/>
 
-    <!-- Abrir el formulario de reservas -->
-
-    <menuitem id="menu_reserva" name="Reservas" sequence="10"/>
-    <menuitem id="menu_reserva" parent="Reservas" name="menu_reserva" action="action_reserva"/>
+    </data>
 </odoo>
