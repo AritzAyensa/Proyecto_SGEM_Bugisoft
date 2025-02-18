@@ -12,7 +12,7 @@
                         <field name="is_vip" string="Cliente VIP"/>
                     </group>
                     <group string="Reservas">
-                        <field name="reserva_ids" widget="one2many_list" context="{'default_cliente_id': active_id}"></field>
+                        <field name="reserva_ids" widget="one2many_list"></field>
                     </group>
                 </sheet>
                 <footer>
@@ -39,10 +39,10 @@
     <record id="action_cliente" model="ir.actions.act_window">
         <field name="name">Clientes</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">list,form</field> <!-- Cambié a 'list' en lugar de 'tree' -->
-        <field name="view_id" ref="view_cliente_list"/> <!-- Referencia a la vista 'list' -->
+        <field name="view_mode">list,form</field> 
+        <field name="view_id" ref="view_cliente_list"/> 
     </record>
     
-    <menuitem id="menu_clientes" name="Clientes" parent="base.menu_partner" sequence="10"/>
+    <menuitem id="menu_clientes" name="Clientes" parent="contacts.menu_contacts" sequence="10"/>
     <menuitem id="menu_clientes_reservas" parent="menu_clientes" name="Clientes VIP" action="action_cliente" sequence="10"/>
 </odoo>
