@@ -15,6 +15,10 @@
                         <field name="reserva_ids" widget="one2many_list" context="{'default_cliente_id': active_id}"></field>
                     </group>
                 </sheet>
+                <footer>
+                    <button string="Guardar" type="object" name="action_save" class="btn-primary"/>
+                    <button string="Cancelar" type="object" name="action_cancel" class="btn-secondary"/>
+                </footer>
             </form>
         </field>
     </record>
@@ -23,12 +27,12 @@
         <field name="name">cliente.tree</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <tree string="Clientes">
+            <list string="Clientes">
                 <field name="name">
                 <field name="is_vip">
                 <field name="email">
                 <field name="phone">
-            </tree>
+            </list>
         </field>
     </record>
     
