@@ -44,12 +44,60 @@
             </field>
         </record>
 
+        <!-- Vista de Calendario para Reservas -->
+<record id="view_reserva_calendar" model="ir.ui.view">
+    <field name="name">view.reserva.calendar</field>
+    <field name="model">res.booking</field>
+    <field name="type">calendar</field>
+    <field name="arch" type="xml">
+        <calendar string="Reservas" date_start="fecha" color="coche_id">
+            <field name="name"/>
+            <field name="description"/>
+            <field name="coche_id"/>
+            <field name="cliente_id"/>
+        </calendar>
+    </field>
+</record>
+
+<!-- Vista Kanban para Reservas -->
+<record id="view_reserva_kanban" model="ir.ui.view">
+    <field name="name">view.reserva.kanban</field>
+    <field name="model">res.booking</field>
+    <field name="type">kanban</field>
+    <field name="arch" type="xml">
+        <kanban string="Reservas">
+            <field name="estado"/>
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click">
+                        <div class="o_kanban_record_title">
+                            <strong><field name="name"/></strong>
+                        </div>
+                        <div>
+                            <field name="description"/>
+                        </div>
+                        <div>
+                            <field name="coche_id"/>
+                        </div>
+                        <div>
+                            <field name="cliente_id"/>
+                        </div>
+                        <div>
+                            Estado: <field name="estado"/>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
+
         <!-- Acción para mostrar las reservas -->
-        <record id="action_reserva" model="ir.actions.act_window">
-            <field name="name">Reservas</field>
-            <field name="res_model">res.booking</field>
-            <field name="view_mode">list,form</field>
-        </record>
+<record id="action_reserva" model="ir.actions.act_window">
+    <field name="name">Reservas</field>
+    <field name="res_model">res.booking</field>
+    <field name="view_mode">list,form,calendar,kanban</field> <!-- Agregar 'calendar' -->
+</record>
 
         <!-- Menú para acceder a las reservas -->
         <menuitem id="menu_reservas" name="Reservas" sequence="10"/>
