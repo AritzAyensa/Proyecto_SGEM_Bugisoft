@@ -1,48 +1,54 @@
 <odoo>
-    <record id="view_cliente_form" model="ir.ui.view">
-        <field name="name">view.cliente.form</field>
+    <!--Menú principal-->
+    <menuitem id="menu_gestion_reservas" name="Clientes" sequence="1" action="action_clientes_lista"/>
+
+     <!--Modificación de la vista original de clientes -->
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">cliente.form.inherit</field>
         <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <form string="cliente">
-                <sheet>
-                    <group>
-                        <field name="name" string="Nombre"/>
-                        <field name="email" string="Correo Electrónico"/>
-                        <field name="phone" string="Teléfono"/>
-                        <field name="is_vip" string="Cliente VIP"/>
-                    </group>
-                    <group string="Reservas">
-                        <field name="reserva_ids" widget="one2many_list"></field>
-                    </group>
-                </sheet>
-                <footer>
-                    <button string="Guardar" type="object" name="action_save" class="btn-primary"/>
-                    <button string="Cancelar" type="object" name="action_cancel" class="btn-secondary"/>
-                </footer>
-            </form>
+            <!-- Añadir el campo "es_vip" después del campo "email" -->
+            <xpath expr="//form//sheet//group[last()]" position="after">
+                <group>
+                    <field name="is_vip" widget="boolean_toggle" string="¿Cliente VIP?"/>
+                </group>
+            </xpath>
         </field>
     </record>
 
+    <!-- Acción para abrir la vista de clientes personalizada (Formulario y Lista moderna) -->
+    <record id="action_clientes" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">form,list</field> <!-- Formulario y Lista moderna -->
+    </record>
+
+    <!-- Submenú para clientes -->
+    <!-- <menuitem id="menu_clientes" name="Clientes" parent="menu_gestion_reservas" sequence="2" action="action_clientes"/> -->
+
+    <!-- Vista moderna de lista de clientes (List View) -->
     <record id="view_cliente_list" model="ir.ui.view">
-        <field name="name">cliente.tree</field>
+        <field name="name">cliente.list</field>
         <field name="model">res.partner</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
-            <list string="Clientes">
-                <field name="name"/>
-                <field name="is_vip"/>
-                <field name="email"/>
-                <field name="phone"/>
+            <list string="Lista de Clientes">
+                <field name="name" string="Nombre"/>
+                <field name="email" string="Correo"/>
+                <field name="phone" string="Teléfono"/>
+                <field name="is_vip" widget="boolean_toggle" string="¿VIP?"/>
             </list>
         </field>
     </record>
 
-    <record id="action_cliente" model="ir.actions.act_window">
-        <field name="name">Clientes</field>
+    <!-- Acción para abrir la vista de lista de clientes -->
+    <record id="action_clientes_lista" model="ir.actions.act_window">
+        <field name="name">Lista de Clientes</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">list,form</field> 
-        <field name="view_id" ref="view_cliente_list"/> 
+        <field name="view_mode">list,form</field> <!-- Modo de vista: lista y formulario -->
     </record>
-    
-    <menuitem id="menu_clientes" name="Clientes" parent="contacts.menu_contacts" sequence="10"/>
-    <menuitem id="menu_clientes_reservas" parent="menu_clientes" name="Clientes VIP" action="action_cliente" sequence="10"/>
+
+    <!-- Menú para acceder a la lista de clientes -->
+    <!-- <menuitem id="menu_clientes_lista" name="Lista de Clientes" parent="menu_gestion_reservas" sequence="2" action="action_clientes_lista"/> -->
 </odoo>
