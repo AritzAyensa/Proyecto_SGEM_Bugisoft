@@ -4,16 +4,21 @@ class Reserva(models.Model):
     _name = "res.booking"
     _description = "Reserva"
 
+    # Campos
     name = fields.Char(string='Nombre', required=True)
     description = fields.Text(string='Descripción', required=True)
     duracion = fields.Integer(string='Duración (días)', required=True)
     fecha = fields.Datetime(string='Fecha y Hora de Inicio', required=True)
-    estado = fields.Text(string='Estado de la reserva', required=True)
+    estado = fields.Selection([  # Cambio de Text a Selection
+        ('pendiente', 'Pendiente'),
+        ('confirmada', 'Confirmada'),
+        ('cancelada', 'Cancelada'),
+    ], string='Estado de la reserva', default='pendiente', required=True)
     precio = fields.Float(string='Precio', compute='_calcular_precio', store=True)
 
     # Relación con coche y cliente
     coche_id = fields.Many2one('res.coche', string="Coche", required=True)
-    cliente_id = fields.Many2one('res.partner', string="Cliente", required=True)  # Cambio a res.partner
+    cliente_id = fields.Many2one('res.partner', string="Cliente", required=True)
 
     # Relación con la factura
     factura_id = fields.Many2one('account.move', string='Factura')
