@@ -39,16 +39,23 @@
                             <field name="cliente_id" />
                             <field name="precio" />
                             <button
-                            name="action_confirmar_reserva"
-                            type="object"
-                            string="Confirmar Reserva"
-                            class="btn-primary"
-                            invisible="estado == 'confirmada'"
-                        />
+                                name="action_confirmar_reserva"
+                                type="object"
+                                string="Confirmar Reserva"
+                                class="btn-success"
+                                invisible="estado == 'confirmada'"
+                            />
+                            <button
+                                name="action_cancelar_reserva"
+                                type="object"
+                                string="Cancelar Reserva"
+                                class="btn-danger"
+                                invisible="estado == 'cancelada'"
+                            />
                         </group>
                     </sheet>
                     <footer>
-                        
+
                     </footer>
                 </form>
             </field>
