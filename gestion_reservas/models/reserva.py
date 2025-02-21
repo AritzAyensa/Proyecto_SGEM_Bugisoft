@@ -114,3 +114,4 @@ class Reserva(models.Model):
             reserva.action_cancelar_reserva()
 
 
+

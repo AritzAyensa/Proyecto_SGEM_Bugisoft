@@ -8,8 +8,8 @@
       <field name="code">model.cancelar_reservas_pendientes()</field>
       <field name="interval_number">1</field>
       <field name="interval_type">hours</field>
-      <field name="nextcall" eval="(fields.Datetime.now() + datetime.timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
-      <field name="numbercall">-1</field>
+      <!-- Eliminar el campo max_trigger_times -->
+      <field name="numbercall">-1</field> <!-- -1 significa que se ejecutará indefinidamente -->
       <field name="active" eval="True"/>
     </record>
   </data>
