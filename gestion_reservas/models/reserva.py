@@ -46,19 +46,18 @@ class Reserva(models.Model):
             if fecha_inicio < datetime.now():
                 raise ValidationError("La fecha de la reserva no puede ser anterior a la fecha actual.")
 
+            # Buscar reservas que se solapen con el período de tiempo
+            reservas_solapadas = self.search([
+                ('coche_id', '=', record.coche_id.id),
+                ('id', '!=', record.id),  # Excluir la reserva actual
+                ('fecha', '<', fecha_fin),
+                ('fecha', '>=', fecha_inicio),
+            ])
 
-                # Buscar reservas que se solapen con el período de tiempo
-                reservas_solapadas = self.search([
-                    ('coche_id', '=', record.coche_id.id),
-                    ('id', '!=', record.id),  # Excluir la reserva actual
-                    ('fecha', '<', fecha_fin),
-                    ('fecha', '>=', fecha_inicio),
-                ])
-
-                if reservas_solapadas:
-                    raise ValidationError(
-                        "El coche ya está reservado en el período de tiempo seleccionado."
-                    )
+            if reservas_solapadas:
+                raise ValidationError(
+                    "El coche ya está reservado en el período de tiempo seleccionado."
+                )
 
     @api.model
     def create(self, vals):
@@ -96,4 +95,22 @@ class Reserva(models.Model):
                 # Publicar la factura automáticamente
                 factura.action_post()
                 record.write({'estado': 'confirmada'})
+
+
+    def action_cancelar_reserva(self):
+        self.write({'estado': 'cancelada'})
+    
+    def cancelar_reservas_pendientes(self):
+        """Cancela las reservas que han estado en estado 'pendiente' por más de 24 horas."""
+        ahora = fields.Datetime.now()
+        limite_tiempo = ahora - timedelta(hours=24)
+
+        reservas_pendientes = self.search([
+            ('estado', '=', 'pendiente'),
+            ('fecha_creacion', '<', limite_tiempo),
+        ])
+
+        for reserva in reservas_pendientes:
+            reserva.action_cancelar_reserva()
+
 
