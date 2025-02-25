@@ -98,7 +98,8 @@ class Reserva(models.Model):
 
 
     def action_cancelar_reserva(self):
-        self.write({'estado': 'cancelada'})
+        self.write({'estado': 'cancelada', 'factura_id': False})
+
     
     def cancelar_reservas_pendientes(self):
         """Cancela las reservas en estado 'pendiente' por más de 24 horas."""
