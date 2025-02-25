@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, timezone
 from odoo.exceptions import ValidationError
 
 class Reserva(models.Model):
@@ -101,17 +101,16 @@ class Reserva(models.Model):
         self.write({'estado': 'cancelada'})
     
     def cancelar_reservas_pendientes(self):
-        """Cancela las reservas que han estado en estado 'pendiente' por más de 24 horas."""
-        ahora = fields.Datetime.now()
+        """Cancela las reservas en estado 'pendiente' por más de 24 horas."""
+        ahora = datetime.now(timezone.utc)
         limite_tiempo = ahora - timedelta(hours=24)
-
         reservas_pendientes = self.search([
             ('estado', '=', 'pendiente'),
-            ('fecha_creacion', '<', limite_tiempo),
+            ('create_date', '<', fields.Datetime.to_string(limite_tiempo)),
         ])
-
         for reserva in reservas_pendientes:
             reserva.action_cancelar_reserva()
+
 
 
 

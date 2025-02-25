@@ -8,7 +8,6 @@
       <field name="code">model.cancelar_reservas_pendientes()</field>
       <field name="interval_number">1</field>
       <field name="interval_type">hours</field>
-      <!-- Eliminar el campo max_trigger_times -->
       <field name="numbercall">-1</field> <!-- -1 significa que se ejecutará indefinidamente -->
       <field name="active" eval="True"/>
     </record>
