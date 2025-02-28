@@ -38,5 +38,8 @@
     </record>
 
     <!-- Menú principal -->
-    <menuitem id="menu_gestion_reservas" name="Clientes" sequence="1" action="action_clientes_lista"/>
+    <menuitem id="menu_clientes" name="Clientes" parent="menu_reservas" action="action_clientes_lista"/>
+
+
+
 </odoo>
