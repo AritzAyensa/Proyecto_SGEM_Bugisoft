@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_reserva,Gestion Reservas Access,model_res_booking,,1,1,1,1
-access_coche,Gestion Coche Access,model_res_coche,,1,1,1,1
-access_cliente,Gestion Cliente Access,model_res_partner,,1,1,1,1
+access_res_booking_manager,Access for Administrators on Booking,model_res_booking,base.group_system,1,1,1,1
+access_res_booking_client,Access for Clients on Booking,model_res_booking,gestion_reservas.group_clientes,1,0,1,0
+access_res_coche_manager,Access for Administrators on Coche,model_res_coche,base.group_system,1,1,1,1
+access_res_coche_client,Access for Clients on Coche,model_res_coche,gestion_reservas.group_clientes,1,0,0,0
+access_res_partner_client,Access for Clients on Partner,model_res_partner,gestion_reservas.group_clientes,1,0,0,0
